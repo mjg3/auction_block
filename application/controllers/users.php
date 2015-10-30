@@ -14,11 +14,18 @@
 			{
 				$this->load->model('auction');
 				$product_id_holder = $this->auction->for_sale();
+				if ($product_id_holder != null) {
 				$product_id = $product_id_holder['product_id'];
 				$product_info = $this->auction->product_detail($product_id);
 
 				$shield = array('product_info' => $product_info);
 				$this->load->view('auction', $shield);
+			}
+				else {
+					$product_info = null;
+					$shield = array('product_info' =>$product_info);
+					$this->load->view('auction', $shield);
+				}
 			}
 			else if($this->session->userdata('logged_in') == true)
 			{
@@ -185,32 +192,53 @@
 		}
 		
 			public function refresh(){
-      		if($this->session->userdata('logged_in') == true &&
-          $this->session->userdata['stripe_id'] !== null )
-          {
+      		// if($this->session->userdata('logged_in') == true &&
+          // $this->session->userdata['stripe_id'] !== null )
+          // {
               $this->load->model('auction');
               $new_time     = $this->auction->get_time_end();
               $time         = $new_time['time_end'];
 
 							$product_id_holder = $this->auction->for_sale();
-							$product_id = $product_id_holder['product_id'];
-							$product_info = $this->auction->product_detail($product_id);
-							$selling_price = $product_info[0]['selling_price'];
-							$high_bidder    = $product_info[0]['bidder_id'];
 
-							$this->load->model('user');
-							$high_bidder_info = $this->user->get_user_by_id($high_bidder);
-							$bidder_name = $high_bidder_info['first_name'];
+							if ($product_id_holder != null)
+							{ //check if something in queue
+								$product_id = $product_id_holder['product_id'];
+								$product_info = $this->auction->product_detail($product_id);
+								$selling_price = $product_info[0]['selling_price'];
+
+										if($product_info[0]['bidder_id'] != null)
+										{//check if there's a bidder
+											$high_bidder    = $product_info[0]['bidder_id'];
+											$this->load->model('user');
+											$high_bidder_info = $this->user->get_user_by_id($high_bidder);
+											$bidder_name = $high_bidder_info['first_name'];
 
 
-							$fresh_info    = array(
-								'time' => $time,
-							  'selling_price' => $selling_price,
-								'bidder_id'     => $high_bidder,
-								'bidder_name'   => $bidder_name
-							);
+											$fresh_info    = array(
+												'time' => $time,
+											  'selling_price' => $selling_price,
+												'bidder_id'     => $high_bidder,
+												'bidder_name'   => $bidder_name,
+												'description'   => $product_info[0]['description'],
+												'image'	        => $product_info[0]['image']
+											);
+										}
+											else
+											{
+												$fresh_info    = array(
+													'time' => $time,
+													'selling_price' => $selling_price,
+													'description'   => $product_info[0]['description'],
+													'image'	        => $product_info[0]['image']
+												);
+											}
+						}
+							else{
+								$fresh_info = null;
+							}
               echo json_encode($fresh_info);
-          }
+          // }
 			}
 	}
 

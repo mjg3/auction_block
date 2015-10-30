@@ -13,8 +13,11 @@
 			$product_id = $this->db->insert_id();
 			$seller_id  = $product_info['seller_id'];
 			// Then we'll insert the proudct into the queue
+			date_default_timezone_set('America/Los_Angeles');
+			$date = date("Y-m-d H:i:s", time() + 60);
+
 			$this->db->insert('queues',
-			array('product_id' => $product_id, 'seller_id' => $seller_id));
+			array('product_id' => $product_id, 'seller_id' => $seller_id, 'time_end' => $date));
 		}
 
 		public function product_detail($product_id) {
@@ -27,9 +30,14 @@
 	// returns the id of the product that is the first item in the queue
 	// and ready to be sold
 	public function for_sale(){
-			$query = 'SELECT product_id, id FROM queues ORDER BY id ASC LIMIT 1';
-			$product_id = $this->db->query($query)->row_array();
-			return $product_id;
+			return $this->db->query("SELECT queues.product_id, queues.id
+																FROM queues
+																ORDER BY queues.id ASC
+																LIMIT 1")->row_array();
+
+			// $query = 'SELECT product_id, id FROM queues ORDER BY id ASC LIMIT 1';
+			// $product_id = $this->db->query($query)->row_array();
+			// return $product_id;
 	}
 
 	public function purchased_products($user_id){
@@ -66,7 +74,10 @@
 	}
 
 	public function update_bid($bid_info){
-		// var_dump($bid_info);
+	// 	var_dump($bid_info);
+	// date_default_timezone_set('America/Los_Angeles');
+	$bid_info['time_end'] = date("Y-m-d H:i:s", $bid_info['time_end']);
+	// var_dump($bid_info);
 
 		$sql = "UPDATE products
 				JOIN queues ON products.id=queues.product_id
@@ -74,6 +85,55 @@
 				WHERE queues.product_id=?";
 		return $this->db->query($sql, $bid_info);
 	}
+
+	public function purchase_insert($product_info){
+		$purchase_info = array(
+			'name' => $product_info[0]['name'],
+			'description' => $product_info[0]['description'],
+			'seller_id' => $product_info[0]['seller_id'],
+			'buyer_id' => $product_info[0]['bidder_id'],
+			'price' => $product_info[0]['selling_price']
+		);
+		$this->db->insert('purchased_products', $purchase_info);
+	}
+
+	public function sold_insert($product_info){
+		$purchase_info = array(
+			// 'name' => $product_info[0]['name'],
+			// 'description' => $product_info[0]['description'],
+			'seller_id' => $product_info[0]['seller_id'],
+			'buyer_id' => $product_info[0]['bidder_id'],
+			'price' => $product_info[0]['selling_price'],
+			'product_id' =>$product_info[0]['id']
+		);
+		$this->db->insert('sold_products', $purchase_info);
+	}
+
+	public function delete_from_queue($product_id){
+		$query = "DELETE FROM queues WHERE product_id = $product_id";
+		$this->db->query($query);
+}
+		public function update_queue() {
+
+		$product_info = $this->for_sale();
+		$product_id   = $product_info[0]['id'];
+		date_default_timezone_set('America/Los_Angeles');
+		$date = date("Y-m-d H:i:s", time() + 182);
+		var_dump($date);
+
+		$new_time = array(
+			'time_end' => $date
+			// 'product_id' => $product_id
+		);
+
+		$this->db->where('product_id', $product_id);
+		$this->db->update('queues', $new_time);
+		// $time_change = "UPDATE queues
+		// 		SET queues.time_end=? WHERE queues.product_id=?";
+		//
+		// 		return $this->db->query($time_change, $new_time);
+	}
+
 }
 
 ?>
