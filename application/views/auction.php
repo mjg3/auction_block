@@ -24,7 +24,7 @@
                 </div>
             </nav>
             <div class="row">
-                <div class="col s4 offset-s4">
+                <div class="col s8 offset-s2">
                     <div id="clock" class="card-panel center-align big z-depth-5"></div>
                 </div>
             </div>
