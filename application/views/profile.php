@@ -52,7 +52,7 @@
                                 <div class="offset-s1 col s10 review card grey lighten-3">
 <?php                               foreach($reviews as $review){
                                         for($i=0; $i<$review['rating'];$i++){?>
-                                            <i class="tiny material-icons no-width">star_rate</i>
+                                            <i class="tiny material-icons no-width bottom">star_rate</i>
 <?php                                   }?>
                                         <h6 class="weight-lighten"><a href="/users/profile/<?=$review['writer_id']?>"><?=$review['first_name']?></a> says</h6>
                                         <p><?=$review['review']?></p>

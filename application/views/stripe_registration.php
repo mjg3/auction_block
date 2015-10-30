@@ -12,7 +12,6 @@
 					<img class="main_logo" src="/assets/images/hammer.gif" alt="no photo" />
 				</div>
 			</div>
-			<a href="/users/logout">safety logout</a>
             <div class="row grey lighten-4 z-depth-2">
                 <div class="col s12 col m10 offset-m1">
                     <h4 class="red-text text-darken-3" id="register_stripe">Before you can be a member...</h4>
