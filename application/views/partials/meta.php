@@ -10,6 +10,7 @@
 <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 <link type="text/css" rel="stylesheet" href="/assets/css/materialize.min.css"  media="screen,projection"/>
 <link href="/assets/css/styles.css" rel="stylesheet"/>
+<link href='https://fonts.googleapis.com/css?family=Exo:300' rel='stylesheet' type='text/css'>
 
 <!-- Script Sources -->
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>

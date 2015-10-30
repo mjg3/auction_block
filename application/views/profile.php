@@ -63,6 +63,36 @@
                             </div> <!-- Review Box-->
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="offset-s1 col s10 card-panel">
+                            <form id="review_form" action="/users/add_review" method="post">
+                                <div class="input-field">
+                                    <i class="material-icons prefix">mode_edit</i>
+                                    <label for="add_review">Leave a review!</label>
+                                    <textarea id="review" class="materialize-textarea" name="review"></textarea>
+                                </div>
+                                <div class="row">
+                                    <div class="col s3">
+                                        <div class="input-field">
+                                            <select name="rating" class="grey-text text-lighten-1">
+                                                <option value="" disabled selected>Rating</option>
+<?php
+                                            for($i=1; $i<=5; $i++){?>
+                                                <option value="<?=$i?>"><?=$i?></option>
+<?php
+                                            }
+?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col s9 right">
+                                        <input type="hidden" name="user_id" value="<?= $user_info['id'] ?>"/>
+                                        <input class="btn right modal-close red darken-2 bottom" type="submit" value="Submit Review!"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div> <!-- End of Profile Info with Reviews-->
             </div>
         </div> <!-- End Page container-->

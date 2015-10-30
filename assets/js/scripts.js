@@ -93,7 +93,7 @@ $(document).ready(function(){
             // var date = 1900 + d.getYear() + "/" + d.getMonth() + "/" + d.getDay() + " " +
             //  d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
          $("#clock").countdown(timeTest, function(event) {
-             $(this).html(event.strftime(' Time Left: %H:%M:%S'));
+             $(this).html(event.strftime('%M : %S'));
          });
         //  .on('finish')
          $('#current_price').empty();

@@ -115,6 +115,14 @@
 			return $customer_id;
 		}
 
+		//add review
+		public function add_review($review_info)
+		{
+			$query = "INSERT INTO reviews (user_id, writer_id, review, rating, created_at) VALUES (?, ?, ?, ?, NOW())";
+			$values = [$review_info['user_id'], $review_info['writer_id'], $review_info['review'], $review_info['rating']];
+			return $this->db->query($query, $values);
+		}
+
 	//Getting reviews for the profile page
 		public function get_profile_reviews($id){
 			return $this->db->query("SELECT review, reviews.created_at, reviews.rating, writers.first_name as first_name, writer_id
