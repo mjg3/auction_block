@@ -99,6 +99,9 @@ a
 {
     color: #971f1f;
 }
+nav ul a:hover{
+    color: #eeeeee;
+}
 a:hover
 {
     cursor: pointer;

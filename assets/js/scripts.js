@@ -57,12 +57,6 @@ $(document).ready(function(){
         }
     };
 
-//Countdown Timer
-    // var timeEnd = "2015/10/29 18:00:00";
-    // $("#clock").countdown(timeEnd, function(event) {
-    //     $(this).html(event.strftime(' Time Left: %H:%M:%S'));
-    // });
-
 //Materialize Initializations
     $(".button-collapse").sideNav();
     $('.modal-trigger').leanModal();
@@ -83,7 +77,6 @@ $(document).ready(function(){
             var price = res.selling_price;
             var bidder_id = res.bidder_id;
             var bidder_name = res.bidder_name;
-            console.log(bidder_name);
             // need to properly format the time
             time  = time.split("-");
             time[0] = time[0] + "/" + time[1] + "/" + time[2];
@@ -100,29 +93,7 @@ $(document).ready(function(){
          $('#current_price').html('$' + price + '.00');
          $('#bidder_name').html(bidder_name);
          $('#bidder_name').attr("href",'/users/profile/'+bidder_id);
-
-
    }, "JSON");
  }, 100);
-    //    setInterval(function() {
-        //    location.reload();
-    //        $.get('/users/refresh', null, function(res){
-    //            $('#show').text('this is working!');
-    //        });
-        //    console.log('hi');
-        //    var randomnumber = Math.floor(Math.random() * 100);
-        //    $('#show').text(
-        //            'I am getting refreshed every 3 seconds..! Random Number ==> '
-        //                    + randomnumber);
-    //    }, 1000);
-
-    // setInterval("updateMyContent();", 1000);
-
-    // $('#bid').submit(function(){
-    //     $.post('/auctions/update_bid', $(this).serialize(), function(res){
-    //         console.log('hi');
-    //     });
-    //     return false;
-    // })
 
 });
