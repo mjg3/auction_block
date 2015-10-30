@@ -1,0 +1,16 @@
+to do:
+
+***IMPORTANT
+_bid button
+
+_timer refresh ajax
+
+
+**small things
+__when add product, add start price
+
+__auto generate tables on dash
+
+
+*low priority
+__add shipping address update form
