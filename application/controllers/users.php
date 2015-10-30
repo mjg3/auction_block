@@ -173,7 +173,17 @@
 			$this->load->view('profile', $data);
 		}
 
-
+		public function add_review()
+		{
+			$writer_id = $this->session->userdata('id');
+			$user_id = $this->input->post('user_id');
+			$review = $this->input->post('review');
+			$rating = $this->input->post('rating');
+			$review_info = array('writer_id'=>$writer_id, 'user_id'=>$user_id, 'review'=>$review, 'rating'=>$rating);
+			$this->user->add_review($review_info);
+			redirect("/users/profile/$user_id");
+		}
+		
 			public function refresh(){
       		if($this->session->userdata('logged_in') == true &&
           $this->session->userdata['stripe_id'] !== null )

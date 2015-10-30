@@ -18,7 +18,7 @@ body
 }
 .small_logo
 {
-    width: 100px;
+    width: 110px;
     height: auto;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -26,6 +26,14 @@ body
 .bump_right
 {
     margin-left: 40px;
+}
+#clock
+{
+    height: 130px;
+    font-family: 'Exo', sans-serif;
+    font-weight: 300;
+    font-size: 64px;
+    letter-spacing: 2px;
 }
 .profile_img
 {
