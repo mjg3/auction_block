@@ -39,7 +39,7 @@ class products extends CI_Controller {
 			$seller_name = $seller_info['first_name'] . " ". $seller_info['last_name'];
 
 			$image = base_url() . 'uploads/' .$data['file_name'];
-			
+
 			$product_info = array(
 				'seller_id' => $seller_id,
 				'name'      => $this->input->post('name'),

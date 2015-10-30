@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
 //Login/Registration scripts
     $('#login-form-link').click(function(e) {
         $("#login-form").delay(100).fadeIn(100);
@@ -57,12 +58,6 @@ $(document).ready(function(){
         }
     };
 
-//Countdown Timer
-    // var timeEnd = "2015/10/29 18:00:00";
-    // $("#clock").countdown(timeEnd, function(event) {
-    //     $(this).html(event.strftime(' Time Left: %H:%M:%S'));
-    // });
-
 //Materialize Initializations
     $(".button-collapse").sideNav();
     $('.modal-trigger').leanModal();
@@ -78,32 +73,44 @@ $(document).ready(function(){
 //Auction Magic scripts
 
   setInterval(function() {
-   $.get('/users/refresh', function(res){
+      $.get('/users/refresh', function(res){
+            console.log(res);
             var time = res.time;
             var price = res.selling_price;
             var bidder_id = res.bidder_id;
             var bidder_name = res.bidder_name;
-            console.log(bidder_name);
+            var image = res.image;
+            var description = res.description;
             // need to properly format the time
             time  = time.split("-");
             time[0] = time[0] + "/" + time[1] + "/" + time[2];
             time = time[0];
             var timeTest = time.replace(/^"(.+(?="$))"$/, '$1');
-            // var d = new Date();
-            // var date = 1900 + d.getYear() + "/" + d.getMonth() + "/" + d.getDay() + " " +
-            //  d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+
          $("#clock").countdown(timeTest, function(event) {
              $(this).html(event.strftime(' Time Left: %H:%M:%S'));
-         });
-        //  .on('finish')
+         })
+
+
+
          $('#current_price').empty();
          $('#current_price').html('$' + price + '.00');
          $('#bidder_name').html(bidder_name);
          $('#bidder_name').attr("href",'/users/profile/'+bidder_id);
+         $('#feature_img').attr("src", image);
+         $('#feature_product_description').empty();
+         $('#feature_product_description').html(description);
 
 
    }, "JSON");
- }, 100);
+ }, 5000);
+
+ $("#clock").on('finish.countdown', function(){
+    console.log("something else");
+    $.get('/auctions/next_product');
+   });
+
+
     //    setInterval(function() {
         //    location.reload();
     //        $.get('/users/refresh', null, function(res){
