@@ -164,7 +164,7 @@
                                     <input type="text" name="name">
                                 </div>
                                 <div class="input-field">
-                                    <i class="material-icons prefix">mode_edit</i>
+                                    <i class="material-icons tiny prefix">mode_edit</i>
                                     <label for="description">Description</label>
                                     <textarea id="description" class="materialize-textarea" name="description"></textarea>
                                 </div>
